@@ -1,354 +1,637 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema Industrial - Proyecto de Grado</title>
+  <title>Horizon Europe 2027 · Convocatòries per a FTSS</title>
 
-  <!-- 1. BOOTSTRAP 5 CSS (Vía CDN oficial) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- 2. BOOTSTRAP ICONS (Iconografía técnica) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
   <style>
-    /* Estilos mínimos complementarios */
     .hero-section {
       background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
       color: white;
-      padding: 90px 0 80px 0;
+      padding: 70px 0 60px 0;
     }
 
-    .metric-card {
-      border-left: 4px solid #0d6efd;
+    .filter-bar {
+      top: 56px;
+      z-index: 1010;
+    }
+
+    .call-card {
+      border-left: 5px solid #0d6efd;
+    }
+
+    .call-card[data-encaix="Alt"] { border-left-color: #198754; }
+    .call-card[data-encaix="Mitjà"] { border-left-color: #ffc107; }
+    .call-card[data-encaix="Baix"] { border-left-color: #adb5bd; }
+
+    .call-id {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: .8rem;
+    }
+
+    .field-label {
+      font-size: .72rem;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #6c757d;
+      margin-bottom: .2rem;
+    }
+
+    .deadline-box {
+      min-width: 110px;
+    }
+
+    .deadline-day {
+      font-size: 1.9rem;
+      line-height: 1;
+      font-weight: 800;
+    }
+
+    .area-badge { font-weight: 600; }
+    .area-Interoperabilitat { background: #e0e7ff; color: #3730a3; }
+    .area-Actius { background: #dcfce7; color: #166534; }
+    .area-IA { background: #fae8ff; color: #86198f; }
+    .area-Atencio { background: #ffedd5; color: #9a3412; }
+    .area-Drons { background: #e0f2fe; color: #075985; }
+
+    .stat-card h3 { font-weight: 800; }
+
+    .cluster-heading {
+      scroll-margin-top: 140px;
     }
   </style>
 </head>
 
-<body>
+<body class="bg-light">
 
-  <!-- ============================================================ -->
-  <!-- 1. BARRA DE NAVEGACIÓN (NAVBAR)                              -->
-  <!-- ============================================================ -->
+  <!-- 1. BARRA DE NAVEGACIÓ -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
     <div class="container">
       <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
-        <i class="bi bi-cpu text-primary fs-4"></i>
-        <span>IndustrialTech<span class="text-primary">.io</span></span>
+        <i class="bi bi-stars text-warning fs-4"></i>
+        <span>Horizon Europe<span class="text-warning"> · FTSS</span></span>
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNavegacion">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNavegacio">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="menuNavegacion">
+      <div class="collapse navbar-collapse" id="menuNavegacio">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="#problema">El Problema</a></li>
-          <li class="nav-item"><a class="nav-link" href="#subsistemas">Subsistemas</a></li>
-          <li class="nav-item"><a class="nav-link" href="#especificaciones">Especificaciones</a></li>
-          <li class="nav-item"><a class="nav-link" href="#metricas">Resultados</a></li>
-          <li class="nav-item"><a class="nav-link" href="#prototipo">Prototipo</a></li>
-          <li class="nav-item"><a class="nav-link btn btn-outline-primary btn-sm ms-lg-2 px-3 text-white"
-              href="#descargas">Memoria PDF</a></li>
+          <li class="nav-item"><a class="nav-link" href="#calendari">Calendari</a></li>
+          <li class="nav-item"><a class="nav-link" href="#convocatories">Convocatòries</a></li>
+          <li class="nav-item"><a class="nav-link" href="#altres-clusters">Altres clústers</a></li>
+          <li class="nav-item"><a class="nav-link" href="#metodologia">Metodologia</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <!-- ============================================================ -->
-  <!-- 2. HERO SECTION (PORTADA PRINCIPAL)                          -->
-  <!-- ============================================================ -->
+  <!-- 2. PORTADA -->
   <header class="hero-section text-center">
     <div class="container">
-      <span class="badge bg-primary-subtle text-primary border border-primary px-3 py-2 rounded-pill mb-3 fw-semibold">
-        <i class="bi bi-gear-wide-connected me-1"></i> 5ª Edición Preaceleración Industrial Tech
+      <span class="badge bg-warning-subtle text-warning-emphasis border border-warning px-3 py-2 rounded-pill mb-3 fw-semibold">
+        <i class="bi bi-calendar-event me-1"></i> Deadlines de gener a juny de 2027
       </span>
-      <h1 class="display-4 fw-bold mb-3">Brazo Robótico de Clasificación SCARA</h1>
-      <p class="lead text-light-50 col-lg-8 mx-auto mb-4" style="color: #cbd5e1;">
-        Automatización inteligente mediante visión artificial y control cinemático de bajo coste para entornos de
-        manufactura esbelta.
+      <h1 class="display-5 fw-bold mb-3">Convocatòries Horizon Europe per a FTSS</h1>
+      <p class="lead col-lg-8 mx-auto mb-4" style="color: #cbd5e1;">
+        Selecció de topics dels clústers del Pilar II (Work Programme 2026-2027) que poden encaixar amb les àrees
+        de la Fundació TIC Salut i Social: Interoperabilitat, Actius digitals, IA, Atenció integrada i Drons.
       </p>
-      <div class="d-flex justify-content-center gap-3 flex-wrap">
-        <a href="#prototipo" class="btn btn-primary btn-lg px-4 shadow">
-          <i class="bi bi-play-circle me-2"></i> Ver Demostración
-        </a>
-        <a href="#descargas" class="btn btn-outline-light btn-lg px-4">
-          <i class="bi bi-file-earmark-pdf me-2"></i> Descargar Memoria
-        </a>
-      </div>
+      <div class="row justify-content-center g-3 col-lg-8 mx-auto" id="stats"></div>
     </div>
   </header>
 
-  <!-- ============================================================ -->
-  <!-- 3. EL PROBLEMA Y LA SOLUCIÓN                                 -->
-  <!-- ============================================================ -->
-  <section id="problema" class="py-5 bg-white border-bottom">
-    <div class="container py-4">
-      <div class="row align-items-center g-5">
-        <div class="col-lg-6">
-          <h6 class="text-primary text-uppercase fw-bold">Contexto Industrial</h6>
-          <h2 class="fw-bold mb-3">Ineficiencia en la clasificación manual de piezas</h2>
-          <p class="text-secondary leading-relaxed">
-            En líneas de ensamblaje de pymes industriales, el control de calidad y la separación de componentes aún
-            dependen de inspección humana, lo que genera cuellos de botella, fatiga operacional y una tasa de error de
-            hasta el 8%.
-          </p>
-          <div class="p-3 bg-light rounded-3 border-start border-4 border-success">
-            <strong>Nuestra Solución:</strong> Un manipulador SCARA articulado con cámara integrada capaz de
-            inspeccionar, clasificar y paletizar piezas a una cadencia de 120 unidades por minuto sin interrupciones.
-          </div>
+  <!-- 3. FILTRES -->
+  <div class="filter-bar sticky-top bg-white border-bottom shadow-sm py-3">
+    <div class="container">
+      <div class="row g-2 align-items-end">
+        <div class="col-6 col-md-3 col-lg-2">
+          <label class="form-label small fw-semibold mb-1" for="fCluster">Clúster</label>
+          <select id="fCluster" class="form-select form-select-sm"></select>
         </div>
-        <div class="col-lg-6 text-center">
-          <img src="assets/img/esquema-arquitectura.svg" class="img-fluid rounded shadow-sm border"
-            alt="Arquitectura del sistema">
+        <div class="col-6 col-md-3 col-lg-2">
+          <label class="form-label small fw-semibold mb-1" for="fMes">Mes del deadline</label>
+          <select id="fMes" class="form-select form-select-sm"></select>
         </div>
+        <div class="col-6 col-md-3 col-lg-2">
+          <label class="form-label small fw-semibold mb-1" for="fArea">Àrea FTSS</label>
+          <select id="fArea" class="form-select form-select-sm"></select>
+        </div>
+        <div class="col-6 col-md-3 col-lg-2">
+          <label class="form-label small fw-semibold mb-1" for="fEncaix">Encaix</label>
+          <select id="fEncaix" class="form-select form-select-sm">
+            <option value="">Tots</option>
+            <option value="Alt">Alt</option>
+            <option value="Mitjà">Mitjà</option>
+            <option value="Baix">Baix</option>
+          </select>
+        </div>
+        <div class="col-8 col-md-9 col-lg-3">
+          <label class="form-label small fw-semibold mb-1" for="fText">Cerca</label>
+          <input id="fText" type="search" class="form-control form-control-sm" placeholder="Paraula clau, ID del topic...">
+        </div>
+        <div class="col-4 col-md-3 col-lg-1 d-grid">
+          <button id="fReset" class="btn btn-outline-secondary btn-sm"><i class="bi bi-x-circle"></i> Neteja</button>
+        </div>
+      </div>
+      <div class="small text-muted mt-2" id="resultCount"></div>
+    </div>
+  </div>
+
+  <!-- 4. CALENDARI -->
+  <section id="calendari" class="py-5 bg-white border-bottom">
+    <div class="container">
+      <div class="text-center mb-4">
+        <h6 class="text-primary text-uppercase fw-bold">Visió ràpida</h6>
+        <h2 class="fw-bold">Calendari de deadlines</h2>
+        <p class="text-muted mb-0">Ordenat per data. Si el topic és en dues etapes, es mostra la data de la primera etapa.</p>
+      </div>
+      <div class="table-responsive shadow-sm rounded border">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-dark">
+            <tr>
+              <th>Deadline</th>
+              <th>Clúster</th>
+              <th>Topic</th>
+              <th class="text-end">Pressupost</th>
+              <th>Àrees FTSS</th>
+              <th>Encaix</th>
+            </tr>
+          </thead>
+          <tbody id="calendarBody"></tbody>
+        </table>
       </div>
     </div>
   </section>
 
-  <!-- ============================================================ -->
-  <!-- 4. SUBSISTEMAS Y ARQUITECTURA (GRID DE CARDS)                -->
-  <!-- ============================================================ -->
-  <section id="subsistemas" class="py-5 bg-light">
-    <div class="container py-4">
-      <div class="text-center mb-5">
-        <h6 class="text-primary text-uppercase fw-bold">Ingeniería del Producto</h6>
-        <h2 class="fw-bold">Arquitectura y Subsistemas Clave</h2>
-        <p class="text-muted">Diseñado de forma modular para mantenimiento y escalabilidad industrial.</p>
-      </div>
+  <!-- 5. CONVOCATÒRIES PER CLÚSTER -->
+  <section id="convocatories" class="py-5">
+    <div class="container" id="clusterContainer"></div>
+  </section>
 
+  <!-- 6. ALTRES CLÚSTERS -->
+  <section id="altres-clusters" class="py-5 bg-white border-top">
+    <div class="container">
+      <div class="text-center mb-4">
+        <h6 class="text-primary text-uppercase fw-bold">Sense encaix de gener a juny</h6>
+        <h2 class="fw-bold">Clústers revisats sense convocatòries rellevants</h2>
+      </div>
       <div class="row g-4">
-        <!-- Subsistema 1 -->
         <div class="col-md-4">
-          <div class="card h-100 shadow-sm border-0">
-            <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&auto=format&fit=crop&q=80"
-              class="card-img-top" alt="Mecánica" style="height: 200px; object-fit: cover;">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="badge bg-primary">Hardware</span>
-                <small class="text-muted">Eslabones CAD</small>
-              </div>
-              <h5 class="card-title fw-bold">Cinemática y Estructura</h5>
-              <p class="card-text text-muted">Estructura mecanizada en aleación de aluminio 6061-T6 con reductores
-                armónicos de juego cero en cada articulación.</p>
-            </div>
+          <div class="card h-100 border-0 shadow-sm p-4">
+            <h5 class="fw-bold"><i class="bi bi-shield-lock me-2 text-secondary"></i>Clúster 3 · Seguretat civil</h5>
+            <p class="text-muted small mb-0">No té cap deadline entre gener i juny de 2027. Les convocatòries tanquen el
+              <strong>5 de novembre de 2026</strong> i el <strong>4 de novembre de 2027</strong>. Si FTSS vol buscar
+              topics de resiliència o de drons per a emergències, aquest és el clúster on mirar per a la tardor.</p>
           </div>
         </div>
-
-        <!-- Subsistema 2 -->
         <div class="col-md-4">
-          <div class="card h-100 shadow-sm border-0">
-            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&auto=format&fit=crop&q=80"
-              class="card-img-top" alt="Electrónica" style="height: 200px; object-fit: cover;">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="badge bg-success">Control</span>
-                <small class="text-muted">Firmware RTOS</small>
-              </div>
-              <h5 class="card-title fw-bold">Actuación y Electrónica</h5>
-              <p class="card-text text-muted">Servomotores brushless de bucle cerrado gobernados por un microcontrolador
-                industrial de 32 bits a 168 MHz.</p>
-            </div>
+          <div class="card h-100 border-0 shadow-sm p-4">
+            <h5 class="fw-bold"><i class="bi bi-lightning-charge me-2 text-secondary"></i>Clúster 5 · Clima, energia i mobilitat</h5>
+            <p class="text-muted small mb-0">Té deadlines el 4 de març, el 31 de març i el 14 d'abril de 2027, però
+              tots els topics són d'energia, bateries, clima o transport. Cap no encaixa amb les àrees de FTSS.</p>
           </div>
         </div>
-
-        <!-- Subsistema 3 -->
         <div class="col-md-4">
-          <div class="card h-100 shadow-sm border-0">
-            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&auto=format&fit=crop&q=80"
-              class="card-img-top" alt="Software" style="height: 200px; object-fit: cover;">
-            <div class="card-body">
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="badge bg-info text-dark">IA & IoT</span>
-                <small class="text-muted">MQTT / OpenCV</small>
-              </div>
-              <h5 class="card-title fw-bold">Visión Artificial y Conectividad</h5>
-              <p class="card-text text-muted">Red neuronal convolucional ligera para inspección de defectos en tiempo
-                real y telemetría en la nube vía MQTT.</p>
-            </div>
+          <div class="card h-100 border-0 shadow-sm p-4">
+            <h5 class="fw-bold"><i class="bi bi-tree me-2 text-secondary"></i>Clúster 6 · Alimentació, bioeconomia i medi ambient</h5>
+            <p class="text-muted small mb-0">Té deadlines el 8 d'abril i l'11 de maig de 2027, de temàtica agrària,
+              circular i hídrica. L'únic topic d'IA (GOVERNANCE-04) és d'assessorament a agricultors i forestals.</p>
           </div>
         </div>
+      </div>
+      <div class="alert alert-info mt-4 mb-0 small">
+        <i class="bi bi-info-circle me-1"></i> <strong>Drons:</strong> cap topic amb deadline de gener a juny de 2027
+        està centrat en drons. L'etiqueta només apareix on els drons podrien formar part de la solució.
       </div>
     </div>
   </section>
 
-  <!-- ============================================================ -->
-  <!-- 5. ESPECIFICACIONES TÉCNICAS (TABLA DE INGENIERÍA)           -->
-  <!-- ============================================================ -->
-  <section id="especificaciones" class="py-5 bg-white border-top border-bottom">
-    <div class="container py-4">
-      <div class="text-center mb-5">
-        <h6 class="text-primary text-uppercase fw-bold">Ficha de Datos</h6>
-        <h2 class="fw-bold">Especificaciones Técnicas</h2>
-        <p class="text-muted">Parámetros operativos validados en el banco de ensayos del taller.</p>
-      </div>
-
-      <div class="row justify-content-center">
-        <div class="col-lg-10">
-          <div class="table-responsive shadow-sm rounded border">
-            <table class="table table-hover table-striped mb-0">
-              <thead class="table-dark">
-                <tr>
-                  <th scope="col">Parámetro Funcional</th>
-                  <th scope="col">Valor / Especificación</th>
-                  <th scope="col">Unidad / Tolerancia</th>
-                  <th scope="col">Estado</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="fw-semibold">Carga útil nominal (Payload)</td>
-                  <td>2.50</td>
-                  <td>kg</td>
-                  <td><span class="badge bg-success">Validado</span></td>
-                </tr>
-                <tr>
-                  <td class="fw-semibold">Radio de alcance máximo (Reach)</td>
-                  <td>650</td>
-                  <td>mm (± 1 mm)</td>
-                  <td><span class="badge bg-success">Validado</span></td>
-                </tr>
-                <tr>
-                  <td class="fw-semibold">Repetibilidad cinemática</td>
-                  <td>± 0.04</td>
-                  <td>mm</td>
-                  <td><span class="badge bg-success">Validado</span></td>
-                </tr>
-                <tr>
-                  <td class="fw-semibold">Tensión de alimentación general</td>
-                  <td>24</td>
-                  <td>V DC (± 5%)</td>
-                  <td><span class="badge bg-success">Validado</span></td>
-                </tr>
-                <tr>
-                  <td class="fw-semibold">Consumo eléctrico medio</td>
-                  <td>280</td>
-                  <td>W</td>
-                  <td><span class="badge bg-info text-dark">Optimizado</span></td>
-                </tr>
-                <tr>
-                  <td class="fw-semibold">Protocolo de telemetría</td>
-                  <td>MQTT sobre TLS / Modbus TCP</td>
-                  <td>Industrial Standard</td>
-                  <td><span class="badge bg-success">Operativo</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+  <!-- 7. METODOLOGIA -->
+  <section id="metodologia" class="py-5 bg-dark text-white">
+    <div class="container col-lg-9">
+      <h2 class="fw-bold mb-3 text-center">Metodologia i avís</h2>
+      <ul style="color: #cbd5e1;">
+        <li>Font: Work Programmes de Horizon Europe 2026-2027, parts 4 a 9 (clústers 1 a 6 del Pilar II).</li>
+        <li>S'han inclòs els topics amb deadline (o deadline de primera etapa) entre l'1 de gener i el 30 de juny de 2027.</li>
+        <li>De cada topic s'ha valorat l'encaix amb les àrees de FTSS. Els que no tenen cap relació amb salut, atenció social o dades i IA aplicables no hi surten.</li>
+        <li>Els camps <em>Objectiu</em>, <em>Scope</em>, <em>Consorci</em> i <em>Expected impact</em> són resums en català del text oficial. L'encaix amb FTSS és una valoració interna.</li>
+        <li>La Comissió pot avançar o endarrerir l'obertura fins a un mes i ajornar els deadlines fins a dos mesos. Tots els deadlines són a les 17:00 (hora de Brussel·les). Cal confirmar sempre les dades al portal Funding &amp; Tenders.</li>
+      </ul>
     </div>
   </section>
 
-  <!-- ============================================================ -->
-  <!-- 6. RESULTADOS Y MÉTRICAS CLAVE                               -->
-  <!-- ============================================================ -->
-  <section id="metricas" class="py-5 bg-light">
-    <div class="container py-4">
-      <div class="text-center mb-5">
-        <h6 class="text-primary text-uppercase fw-bold">Impacto Demostrado</h6>
-        <h2 class="fw-bold">Resultados y KPIs de Desempeño</h2>
-      </div>
-
-      <div class="row g-4 text-center">
-        <div class="col-md-4">
-          <div class="card p-4 shadow-sm border-0 metric-card h-100">
-            <h2 class="display-4 fw-bold text-primary mb-1">98.5%</h2>
-            <h5 class="fw-bold">Precisión en Clasificación</h5>
-            <p class="text-muted small mb-0">Tasa de acierto del modelo de visión artificial en detección de defectos
-              superficiales.</p>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="card p-4 shadow-sm border-0 metric-card h-100" style="border-left-color: #198754;">
-            <h2 class="display-4 fw-bold text-success mb-1">-32%</h2>
-            <h5 class="fw-bold">Reducción del Tiempo de Ciclo</h5>
-            <p class="text-muted small mb-0">Optimización de trayectorias con algoritmos de curvas polinomiales de 5º
-              grado.</p>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="card p-4 shadow-sm border-0 metric-card h-100" style="border-left-color: #ffc107;">
-            <h2 class="display-4 fw-bold text-warning mb-1">0.18 s</h2>
-            <h5 class="fw-bold">Parada de Seguridad</h5>
-            <p class="text-muted small mb-0">Tiempo de detección y frenado ante invasión de la barrera óptica láser.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================ -->
-  <!-- 7. PROTOTIPO Y MULTIMEDIA EN VIVO                            -->
-  <!-- ============================================================ -->
-  <section id="prototipo" class="py-5 bg-white border-top">
-    <div class="container py-4">
-      <div class="text-center mb-5">
-        <h6 class="text-primary text-uppercase fw-bold">Evidencias Experimentales</h6>
-        <h2 class="fw-bold">Demostración del Prototipo</h2>
-        <p class="text-muted">Vídeo de ensayo continuo en la célula de pruebas.</p>
-      </div>
-
-      <div class="row justify-content-center">
-        <div class="col-lg-8">
-          <!-- Reproductor de vídeo responsivo 16:9 de Bootstrap -->
-          <div class="ratio ratio-16x9 rounded shadow border overflow-hidden">
-            <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=0"
-              title="Vídeo Demostrativo del Prototipo" allowfullscreen>
-            </iframe>
-          </div>
-          <p class="text-center text-muted small mt-2">
-            <i class="bi bi-info-circle me-1"></i> Sustituye el enlace del vídeo por la URL de YouTube o Vimeo de tu
-            propio proyecto.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================ -->
-  <!-- 8. DOCUMENTACIÓN Y DESCARGAS                                 -->
-  <!-- ============================================================ -->
-  <section id="descargas" class="py-5 bg-dark text-white text-center">
-    <div class="container py-4">
-      <h2 class="fw-bold mb-3">Documentación Técnica Completa</h2>
-      <p class="text-light-50 col-md-6 mx-auto mb-4" style="color: #94a3b8;">
-        Descarga la memoria completa, diagramas de conexionado eléctrico y el datasheet de especificaciones para el
-        tribunal de evaluación.
-      </p>
-      <div class="d-flex justify-content-center gap-3 flex-wrap">
-        <a href="assets/docs/memoria_tecnica_ejemplo.pdf" class="btn btn-danger btn-lg px-4 shadow" download>
-          <i class="bi bi-file-earmark-pdf me-2"></i> Descargar Memoria (PDF)
-        </a>
-        <a href="https://github.com" target="_blank" class="btn btn-outline-light btn-lg px-4">
-          <i class="bi bi-github me-2"></i> Repositorio de Código
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================ -->
-  <!-- 9. EQUIPO Y PIE DE PÁGINA                                    -->
-  <!-- ============================================================ -->
-  <footer class="bg-black text-white-50 py-5">
-    <div class="container text-center">
-      <div class="mb-3">
-        <i class="bi bi-mortarboard fs-2 text-primary"></i>
-      </div>
-      <h5 class="text-white fw-bold">Equipo de Desarrollo</h5>
-      <p class="mb-4">Estudiantes de Grado en Ingeniería - Programa de Preaceleración Industrial Tech</p>
-      <div class="d-flex justify-content-center gap-3 mb-4">
-        <a href="https://linkedin.com" target="_blank" class="text-white-50 fs-5"><i class="bi bi-linkedin"></i></a>
-        <a href="mailto:tuemail@ejemplo.com" class="text-white-50 fs-5"><i class="bi bi-envelope-fill"></i></a>
-        <a href="https://github.com" target="_blank" class="text-white-50 fs-5"><i class="bi bi-github"></i></a>
-      </div>
-      <hr class="border-secondary opacity-25">
-      <p class="small mb-0">© 2026 Programa Industrial Tech · Diseñado con Bootstrap 5</p>
+  <footer class="bg-black text-white-50 py-4">
+    <div class="container text-center small">
+      Fundació TIC Salut i Social · Recull de convocatòries Horizon Europe · Actualitzat el novembre de 2026
     </div>
   </footer>
 
-  <!-- 10. BOOTSTRAP 5 JAVASCRIPT BUNDLE (Para menú móvil desplegable) -->
+  <script>
+    // =========================================================
+    // DADES DE LES CONVOCATÒRIES
+    // Per afegir-ne una de nova, copia un bloc { ... } i edita'l.
+    // =========================================================
+    const CALLS = [
+      {
+        cluster: 1,
+        id: "HORIZON-HLTH-2027-01-STAYHLTH-01",
+        title: "Addressing disabilities through the life course to support independent living and inclusion",
+        titolCa: "Discapacitat al llarg de la vida: vida independent i inclusió",
+        tipus: "RIA",
+        obertura: "29/10/2026",
+        deadline: "2027-02-17",
+        deadlineText: "17/02/2027 (una sola etapa)",
+        budget: 39.30,
+        perProject: "6–8 M€",
+        nProjects: "5",
+        objectiu: "Explorar noves maneres de promoure la vida independent i la inclusió de les persones amb discapacitat, reduir l'impacte de les barreres del dia a dia i donar suport a la transició de les institucions a la vida a la comunitat.",
+        scope: "Cal cobrir com a mínim tres d'aquests àmbits: recerca sobre condicions de salut lligades a la discapacitat (incloses eines digitals i tecnologies); infants, joves en transició a l'edat adulta o gent gran; accés a habilitació i rehabilitació amb tecnologies d'assistència; prevenció de la discapacitat; condicions per a la desinstitucionalització i serveis comunitaris; i models de cura sociosanitaris centrats en la persona, amb autocura. Es remarca la importància de recollir dades desagregades.",
+        consorci: "És obligatòria la contribució de les ciències socials i humanitats (SSH). Es poden fer servir les infraestructures de recerca europees de salut per a dades i eines digitals. Les entitats dels EUA poden rebre finançament.",
+        impacte: "Les persones amb discapacitat poden viure de manera independent i participar en la comunitat. Es desenvolupen solucions que eliminen barreres i serveis de suport comunitari. Decisors, serveis sanitaris i socials i organitzacions de discapacitat coneixen els avenços i les bones pràctiques.",
+        arees: ["Atenció integrada", "Actius digitals"],
+        encaix: "Alt",
+        perQue: "Combina atenció sanitària i social, desinstitucionalització i tecnologies digitals d'assistència, que és el nucli de l'atenció integrada. FTSS hi pot aportar el desplegament d'eines digitals i el vincle amb els serveis socials i de salut de Catalunya."
+      },
+      {
+        cluster: 1,
+        id: "HORIZON-HLTH-2027-01-ENVHLTH-MISSCLIMA-03",
+        title: "Tools and technologies to support health adaptation to climate change",
+        titolCa: "Eines i tecnologies per adaptar la salut al canvi climàtic",
+        tipus: "PCP (compra pública precomercial)",
+        obertura: "29/10/2026",
+        deadline: "2027-02-17",
+        deadlineText: "17/02/2027 (una sola etapa)",
+        budget: 20.00,
+        perProject: "4–5 M€",
+        nProjects: "4",
+        objectiu: "Finançar grups de compradors públics que contractin conjuntament el desenvolupament de solucions innovadores perquè els sistemes de salut i les comunitats s'adaptin als riscos per a la salut del canvi climàtic.",
+        scope: "Solucions de vigilància, predicció, prevenció, gestió del risc i diagnòstic: tecnologies geoespacials i suport a la decisió per a autoritats locals i proveïdors de salut; vigilància en temps real i alerta primerenca; transició a instal·lacions i serveis sanitaris resilients (les obres d'infraestructura queden fora); i eines de gestió del risc en comunitats i entorns laborals. Pot incloure altres factors ambientals, com la contaminació atmosfèrica.",
+        consorci: "Consorci de compradors públics amb necessitats similars: hospitals, atenció primària, serveis d'atenció domiciliària, municipis, protecció civil i agències públiques. Han de declarar la intenció de comprar almenys una solució i fer una consulta oberta al mercat. Els desenvolupadors no reben finançament directe: es presenten a la licitació. Es pot donar suport financer a tercers (màxim 60.000 € per tercer).",
+        impacte: "Poblacions, autoritats i sistemes de salut disposen de solucions per reforçar la vigilància i la prevenció i reduir els riscos climàtics i ambientals per a la salut. Els decisors apliquen polítiques de clima i salut amb solucions gairebé llestes per escalar.",
+        arees: ["Actius digitals", "IA", "Interoperabilitat", "Drons"],
+        encaix: "Alt",
+        perQue: "FTSS té experiència en compra pública d'innovació i pot coordinar el grup de compradors del sistema català de salut. Les solucions d'alerta primerenca i de suport a la decisió són actius digitals i d'IA. Els drons podrien entrar en la vigilància ambiental si el repte ho justifica."
+      },
+      {
+        cluster: 1,
+        id: "HORIZON-HLTH-2027-02-DISEASE-01-two-stage",
+        title: "Innovative healthcare interventions for non-communicable diseases",
+        titolCa: "Intervencions sanitàries innovadores per a malalties no transmissibles",
+        tipus: "RIA · dues etapes",
+        obertura: "29/10/2026",
+        deadline: "2027-02-17",
+        deadlineText: "1a etapa 17/02/2027 · 2a etapa 16/09/2027",
+        budget: 63.80,
+        perProject: "7–8 M€",
+        nProjects: "8",
+        objectiu: "Validar en assaigs clínics intervencions sanitàries noves o millorades per tractar i gestionar malalties cardiovasculars, diabetis, malalties respiratòries cròniques o malalties renals cròniques.",
+        scope: "Assaigs clínics rigorosos en fase inicial, amb prova de concepte de seguretat i eficàcia ja feta. En el moment de presentar la proposta, la recerca preclínica i l'esborrany de protocol han d'estar acabats i s'han d'haver fet consultes prèvies a ètica i al regulador. Cal tenir en compte la multimorbiditat i les diferències de sexe i gènere. Es poden fer servir o desenvolupar tecnologies digitals, i el maquinari i el programari han de ser interoperables segons estàndards internacionals. Dades FAIR.",
+        consorci: "Equips clínics i de recerca. És obligatòria la contribució SSH. S'encoratja la participació de start-ups i pimes, i cal implicar pacients i cuidadors.",
+        impacte: "La comunitat científica i clínica disposa de coneixement, dades i eines per a noves intervencions i en treu avenços per a la pràctica clínica. Les bases de dades s'integren en infraestructures FAIR. Els decisors coneixen els requisits per implantar les intervencions i els pacients en reben beneficis tangibles.",
+        arees: ["Interoperabilitat", "Actius digitals", "Atenció integrada"],
+        encaix: "Mitjà",
+        perQue: "El lideratge ha de ser clínic, però el topic exigeix interoperabilitat amb estàndards internacionals i dades FAIR. FTSS podria entrar com a soci per a la capa digital i d'integració amb la història clínica, sobretot en el maneig de la cronicitat."
+      },
+      {
+        cluster: 1,
+        id: "HORIZON-HLTH-2027-02-DISEASE-14-two-stage",
+        title: "Clinical trials for advancing innovative interventions for neurodegenerative diseases",
+        titolCa: "Assaigs clínics d'intervencions innovadores en malalties neurodegeneratives",
+        tipus: "RIA · dues etapes",
+        obertura: "29/10/2026",
+        deadline: "2027-02-17",
+        deadlineText: "1a etapa 17/02/2027 · 2a etapa 16/09/2027",
+        budget: 39.30,
+        perProject: "~10 M€",
+        nProjects: "4",
+        objectiu: "Provar en assaigs clínics intervencions que combinin un tractament amb principi actiu i un enfocament complementari (estil de vida, entrenament cognitiu, rehabilitació) per millorar la qualitat de vida en malalties neurodegeneratives.",
+        scope: "Assaigs en fase inicial de seguretat i eficàcia amb cohorts representatives. Estudi dels mecanismes d'acció (imatge, perfils òmics, possibles marcadors substituts). Ús de tecnologies digitals, com la IA (també generativa) o els dispositius portables, per monitorar l'eficàcia a llarg termini i la progressió en condicions reals. Queden excloses les malalties neurodegeneratives rares.",
+        consorci: "Equips clínics i de recerca. És obligatòria la contribució SSH. S'encoratja la participació de start-ups i pimes.",
+        impacte: "La comunitat científica i clínica fa servir dades, eines i bones pràctiques per desenvolupar tractaments més eficaços, reforça la col·laboració a escala europea i fa un ús ampli de les bases de dades.",
+        arees: ["IA", "Actius digitals"],
+        encaix: "Baix",
+        perQue: "És un topic clínic i farmacològic. FTSS només hi encaixaria com a soci per a la monitorització digital (dispositius portables, IA) i el seguiment en condicions reals."
+      },
+      {
+        cluster: 1,
+        id: "HORIZON-HLTH-2027-01-CARE-02",
+        title: "Personalised approaches to reduce risks from Adverse Drug Reactions due to administration of multiple medications",
+        titolCa: "Reduir les reaccions adverses a medicaments en pacients polimedicats",
+        tipus: "RIA",
+        obertura: "29/10/2026",
+        deadline: "2027-02-17",
+        deadlineText: "17/02/2027 (una sola etapa)",
+        budget: 38.00,
+        perProject: "8–10 M€",
+        nProjects: "4",
+        objectiu: "Reduir les reaccions adverses a medicaments en pacients que en prenen tres o més, integrant informació genètica i altres biomarcadors en la presa de decisions clíniques.",
+        scope: "Identificar i prevenir les cascades de prescripció i millorar la gestió de la polimedicació aprofitant les tecnologies de salut i l'analítica de dades. Integrar la gestió de la medicació a la història clínica electrònica i als sistemes de suport a la decisió. Validar biomarcadors per estratificar pacients i detectar reaccions adverses abans que apareguin els símptomes. Fer servir les guies CPIC de farmacogenètica.",
+        consorci: "Recerca clínica, farmacologia i analítica de dades. S'encoratja la participació de start-ups i pimes.",
+        impacte: "Menys reaccions adverses i més seguretat en l'ús de medicaments. Els professionals integren biomarcadors en la decisió clínica. El sistema estalvia ingressos hospitalaris, es revisen les guies clíniques i reguladores i millora la formació en polimedicació.",
+        arees: ["Interoperabilitat", "IA", "Atenció integrada"],
+        encaix: "Alt",
+        perQue: "Demana explícitament integrar la medicació a la història clínica electrònica i als sistemes de suport a la decisió clínica. És un cas clar per a l'interoperabilitat i la IA de FTSS, centrat en pacients crònics i gent gran."
+      },
+      {
+        cluster: 1,
+        id: "HORIZON-HLTH-2027-02-TOOL-01-two-stage",
+        title: "Development of predictive biomarkers of disease progression and treatment response by using AI methodologies for chronic non-communicable diseases",
+        titolCa: "Biomarcadors predictius amb IA per a malalties cròniques no transmissibles",
+        tipus: "RIA · dues etapes",
+        obertura: "29/10/2026",
+        deadline: "2027-02-17",
+        deadlineText: "1a etapa 17/02/2027 · 2a etapa 16/09/2027",
+        budget: 44.20,
+        perProject: "6–8 M€",
+        nProjects: "6",
+        objectiu: "Desenvolupar clínicament biomarcadors predictius multimodals de progressió de la malaltia i de resposta al tractament en malalties cròniques no transmissibles (excepte càncer), amb metodologies d'IA ja establertes.",
+        scope: "Crear una col·laboració multidisciplinària per mapar els biomarcadors que ja es fan servir i els candidats. Adaptar mètodes d'IA existents, sense crear-ne de nous des de zero, combinant biomarcadors, dades d'estudis clínics, dades longitudinals i dades del món real (RWD). La proposta ha de demostrar que les dades clíniques d'alta qualitat ja estan disponibles. Estratificació per sexe biològic.",
+        consorci: "Col·laboració multidisciplinària: clínics, especialistes en biomarcadors i en IA i dades. Cal garantir l'accés a dades clíniques i del món real.",
+        impacte: "Els investigadors disposen de nous biomarcadors predictius i els clínics els fan servir per a una medicina personalitzada. Hi ha eines d'IA fiables per desenvolupar biomarcadors multimodals, i els ciutadans es beneficien de millors guies clíniques.",
+        arees: ["IA", "Interoperabilitat"],
+        encaix: "Mitjà",
+        perQue: "Es basa en IA aplicada a dades del món real, i aquí FTSS pot aportar l'accés i la governança de dades i l'experiència en IA en salut. El lideratge científic seria d'un centre de recerca clínica."
+      },
+      {
+        cluster: 1,
+        id: "HORIZON-HLTH-2027-02-IND-02-two-stage",
+        title: "Portable and versatile Point-of-care diagnostics",
+        titolCa: "Diagnòstic portàtil i versàtil al punt d'atenció",
+        tipus: "IA (Innovation Action) · dues etapes",
+        obertura: "29/10/2026",
+        deadline: "2027-02-17",
+        deadlineText: "1a etapa 17/02/2027 · 2a etapa 16/09/2027",
+        budget: 39.30,
+        perProject: "5–7 M€",
+        nProjects: "6",
+        objectiu: "Desenvolupar proves diagnòstiques al punt d'atenció més sensibles, selectives i fàcils d'utilitzar, que accelerin la presa de decisions terapèutiques.",
+        scope: "Solucions que compleixin els criteris REASSURED de l'OMS (connectivitat en temps real, presa de mostra fàcil, assequibles, sensibles, específiques, ràpides, amb poc equipament i que arribin a l'usuari final) i que vagin de la mostra al resultat. Repte de miniaturització, alimentació, versatilitat de mostres, control de qualitat, compliment normatiu i petjada ambiental. Hi poden haver algoritmes d'IA integrats als dispositius.",
+        consorci: "El text no fixa una composició concreta. Com que és una acció d'innovació, cal indústria o pimes desenvolupadores i entorns clínics on validar.",
+        impacte: "Els professionals tenen eines de diagnòstic al punt d'atenció, els pacients reben un diagnòstic ràpid i precís, i els sistemes de salut obtenen millor evidència per al control i la prevenció de malalties.",
+        arees: ["Actius digitals", "Interoperabilitat"],
+        encaix: "Baix",
+        perQue: "És un topic de desenvolupament de dispositius. FTSS només hi aportaria la connectivitat en temps real dels resultats amb la història clínica i el pilotatge en atenció primària."
+      },
+      {
+        cluster: 2,
+        id: "HORIZON-CL2-2027-02-TRANSFO-09-two-stage",
+        title: "Improving socio-economic outcomes for persons with dementia and informal caregivers",
+        titolCa: "Millorar la situació socioeconòmica de persones amb demència i de les persones cuidadores",
+        tipus: "RIA · dues etapes",
+        obertura: "02/03/2027",
+        deadline: "2027-05-04",
+        deadlineText: "1a etapa 04/05/2027 · 2a etapa 30/09/2027",
+        budget: 16.00,
+        perProject: "~3,2 M€",
+        nProjects: "5",
+        objectiu: "Implementar intervencions sistèmiques que millorin la vida econòmica i social, l'estabilitat financera i la salut mental de les persones amb demència i de les persones cuidadores informals, amb perspectiva de gènere.",
+        scope: "Prioritza escalar i adaptar intervencions que ja han funcionat a petita escala. Demana un marc d'avaluació robust i una anàlisi de cost-efectivitat i d'integració als sistemes sanitari i social. Pot centrar-se en grups vulnerables i incloure models comunitaris (ciutats amigues de la demència, grups de suport entre iguals). S'encoratja incloure tecnologia i eines digitals.",
+        consorci: "Les intervencions s'han d'implementar en almenys quatre estats membres o associats. Les persones cuidadores han de participar en el disseny i la implementació. A la primera etapa, l'avaluació és cega: no es poden posar noms d'organitzacions ni logos.",
+        impacte: "Les persones amb demència guanyen autonomia, inclusió i qualitat de vida, i les cuidadores redueixen la càrrega emocional, física i econòmica. Els serveis de cures de llarga durada i de salut ofereixen una atenció més integrada i accessible.",
+        arees: ["Atenció integrada", "Actius digitals"],
+        encaix: "Alt",
+        perQue: "És un topic d'atenció integrada sociosanitària centrat en cuidadors i en l'escalat d'intervencions als sistemes públics. FTSS pot liderar o co-liderar el desplegament i l'avaluació a Catalunya i aportar-hi eines digitals de suport."
+      },
+      {
+        cluster: 4,
+        id: "HORIZON-CL4-2027-04-DIGITAL-EMERGING-04",
+        title: "Apply AI: Challenge-Driven AI Innovation Booster in Apply AI prioritised sectors (RIA)",
+        titolCa: "Apply AI: competició de reptes d'IA en sectors prioritaris (salut)",
+        tipus: "RIA",
+        obertura: "17/11/2026",
+        deadline: "2027-03-18",
+        deadlineText: "18/03/2027 (una sola etapa)",
+        budget: 42.00,
+        perProject: "~14 M€",
+        nProjects: "3",
+        objectiu: "Organitzar una competició per etapes que impulsi solucions d'IA de confiança en un sector prioritari de l'estratègia Apply AI: salut, manufactura avançada o conducció autònoma.",
+        scope: "Cada proposta tria un sol sector. En salut, l'objectiu és accelerar el diagnòstic i els plans de tractament, millorar la cirurgia robòtica o l'atenció amb analítica predictiva. El consorci defineix reptes reals i llança una convocatòria oberta, i els deu millors passen a la segona etapa. Hi competeixen pimes o equips liderats per pimes, que reben suport financer com a tercers. El consorci ha de garantir l'accés a dades per afinar els models.",
+        consorci: "Les empreses usuàries del sector (en salut, proveïdors i organitzacions sanitàries) han de ser socis principals. Participació limitada als estats membres, Islàndia, Noruega, el Canadà, Israel, Corea, Nova Zelanda, Suïssa i el Regne Unit. Cal un pla d'explotació de les solucions.",
+        impacte: "Progrés tecnològic i innovació en els sectors prioritaris de l'Apply AI, més competitivitat i visibilitat de la comunitat d'IA europea i més adopció d'IA de confiança.",
+        arees: ["IA", "Actius digitals", "Interoperabilitat"],
+        encaix: "Alt",
+        perQue: "FTSS pot aportar reptes del sistema de salut català, fer de pont amb els proveïdors sanitaris (socis \"usuaris\") i facilitar l'accés a dades per als equips. Encaixa amb l'àrea d'IA i amb el paper de FTSS com a dinamitzador d'ecosistema."
+      },
+      {
+        cluster: 4,
+        id: "HORIZON-CL4-2027-04-DATA-03",
+        title: "New approaches for decentralized, federated and sustainable AI data processing (RIA)",
+        titolCa: "Processament de dades per a IA descentralitzat, federat i sostenible",
+        tipus: "RIA",
+        obertura: "17/11/2026",
+        deadline: "2027-03-18",
+        deadlineText: "18/03/2027 (una sola etapa)",
+        budget: 35.00,
+        perProject: "~17,5 M€",
+        nProjects: "2",
+        objectiu: "Desenvolupar alternatives descentralitzades i sostenibles a la computació d'IA centralitzada, per superar els colls d'ampolla de capacitat de càlcul a la UE.",
+        scope: "Arquitectures d'IA distribuïdes i federades que vagin més enllà de l'aprenentatge federat, a través del continu edge-cloud-HPC. Mètodes per millorar la qualitat i la consistència de dades distribuïdes preservant la privacitat. Eines per mesurar i millorar l'eficiència energètica. S'ha de demostrar en almenys dos casos d'ús de dominis diferents.",
+        consorci: "Participació limitada als estats membres, Islàndia, Noruega i alguns països associats (el Canadà, Israel, Corea, Nova Zelanda, Suïssa i el Regne Unit), amb garanties sobre el control de les entitats.",
+        impacte: "Noves eines i tècniques de computació d'IA descentralitzada que aprofiten maquinari divers i redueixen la dependència de grans centres de dades centralitzats.",
+        arees: ["IA", "Interoperabilitat"],
+        encaix: "Baix",
+        perQue: "És un topic tecnològic de computació. FTSS només hi entraria com a cas d'ús sanitari, per exemple amb dades de salut federades sense moure-les dels centres."
+      },
+      {
+        cluster: 4,
+        id: "HORIZON-CL4-2027-04-HUMAN-07",
+        title: "Facilitate the engagement of European stakeholders in international digital standardisation (CSA)",
+        titolCa: "Participació europea en l'estandardització digital internacional",
+        tipus: "CSA",
+        obertura: "17/11/2026",
+        deadline: "2027-03-18",
+        deadlineText: "18/03/2027 (una sola etapa)",
+        budget: 7.00,
+        perProject: "~7 M€",
+        nProjects: "1",
+        objectiu: "Reforçar la presència i el lideratge d'experts europeus en els organismes d'estandardització digital global.",
+        scope: "Crear una estructura que financi la participació d'experts europeus en comitès tècnics d'estandardització, acollir reunions internacionals (3GPP, ISO/IEC JTC1), fer anàlisis de panorama i de llacunes, promoure l'estandardització i formar-hi. Continua la línia del projecte StandICT.eu. Com a mínim el 75% del pressupost ha d'anar a suport a tercers per convocatòries obertes (màxim 60.000 € per tercer).",
+        consorci: "Un sol projecte, que ha de crear sinergies amb les iniciatives existents (StandICT.eu).",
+        impacte: "Més influència d'experts europeus (pimes, recerca, codi obert, societat) en els estàndards digitals, millors capacitats i anàlisis actualitzades del panorama d'estandardització.",
+        arees: ["Interoperabilitat"],
+        encaix: "Baix",
+        perQue: "Ser soci del consorci és poc probable. La via interessant és presentar-se a les convocatòries obertes del projecte guanyador per finançar la participació d'experts d'interoperabilitat de FTSS en comitès d'estàndards (per exemple HL7/FHIR o ISO/TC 215)."
+      }
+    ];
+
+    const CLUSTERS = {
+      1: { nom: "Clúster 1 · Salut", wp: "WP4", icon: "bi-heart-pulse", color: "danger" },
+      2: { nom: "Clúster 2 · Cultura, creativitat i societat inclusiva", wp: "WP5", icon: "bi-people", color: "warning" },
+      4: { nom: "Clúster 4 · Digital, indústria i espai", wp: "WP7", icon: "bi-cpu", color: "primary" }
+    };
+
+    const AREES = ["Interoperabilitat", "Actius digitals", "IA", "Atenció integrada", "Drons"];
+    const MESOS = ["gener", "febrer", "març", "abril", "maig", "juny"];
+
+    // ---------------- utilitats ----------------
+    const areaClass = a => "area-" + a.split(" ")[0].replace("à", "a").replace("ó", "o");
+    const areaBadges = arr => arr.map(a => `<span class="badge rounded-pill area-badge ${areaClass(a)} me-1 mb-1">${a}</span>`).join("");
+    const encaixBadge = (e, pre = "") => {
+      const c = e === "Alt" ? "success" : e === "Mitjà" ? "warning text-dark" : "secondary";
+      return `<span class="badge bg-${c}">${pre}${e}</span>`;
+    };
+    const fmtM = n => n.toFixed(2).replace(".", ",") + " M€";
+    const monthOf = c => Number(c.deadline.slice(5, 7));
+    const portalUrl = id => "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/" + id.toLowerCase();
+
+    // ---------------- filtres ----------------
+    const fCluster = document.getElementById("fCluster");
+    const fMes = document.getElementById("fMes");
+    const fArea = document.getElementById("fArea");
+    const fEncaix = document.getElementById("fEncaix");
+    const fText = document.getElementById("fText");
+
+    fCluster.innerHTML = `<option value="">Tots</option>` +
+      Object.entries(CLUSTERS).map(([k, v]) => `<option value="${k}">${v.nom.split(" · ")[0]} (${v.wp})</option>`).join("");
+    fMes.innerHTML = `<option value="">Tots</option>` +
+      MESOS.map((m, i) => `<option value="${i + 1}">${m.charAt(0).toUpperCase() + m.slice(1)} 2027</option>`).join("");
+    fArea.innerHTML = `<option value="">Totes</option>` + AREES.map(a => `<option>${a}</option>`).join("");
+
+    function filtered() {
+      const q = fText.value.trim().toLowerCase();
+      return CALLS.filter(c =>
+        (!fCluster.value || String(c.cluster) === fCluster.value) &&
+        (!fMes.value || monthOf(c) === Number(fMes.value)) &&
+        (!fArea.value || c.arees.includes(fArea.value)) &&
+        (!fEncaix.value || c.encaix === fEncaix.value) &&
+        (!q || JSON.stringify(c).toLowerCase().includes(q))
+      ).sort((a, b) => a.deadline.localeCompare(b.deadline) || a.id.localeCompare(b.id));
+    }
+
+    // ---------------- render ----------------
+    function renderStats(list) {
+      const total = list.reduce((s, c) => s + c.budget, 0);
+      const alts = list.filter(c => c.encaix === "Alt").length;
+      const first = list[0];
+      const box = (n, t) => `<div class="col-6 col-md-3"><div class="stat-card rounded-3 p-3" style="background:rgba(255,255,255,.07)"><h3 class="mb-0">${n}</h3><small style="color:#cbd5e1">${t}</small></div></div>`;
+      document.getElementById("stats").innerHTML =
+        box(list.length, "topics seleccionats") +
+        box(alts, "amb encaix alt") +
+        box(Math.round(total) + " M€", "pressupost total") +
+        box(first ? first.deadline.split("-").reverse().join("/") : "—", "primer deadline");
+    }
+
+    function renderCalendar(list) {
+      document.getElementById("calendarBody").innerHTML = list.length ? list.map(c => `
+        <tr>
+          <td class="text-nowrap fw-semibold">${c.deadline.split("-").reverse().join("/")}</td>
+          <td><span class="badge bg-${CLUSTERS[c.cluster].color}-subtle text-${CLUSTERS[c.cluster].color}-emphasis border">C${c.cluster}</span></td>
+          <td><a href="#${c.id}" class="text-decoration-none fw-semibold">${c.titolCa}</a><div class="call-id text-muted">${c.id}</div></td>
+          <td class="text-end text-nowrap">${fmtM(c.budget)}</td>
+          <td>${areaBadges(c.arees)}</td>
+          <td>${encaixBadge(c.encaix)}</td>
+        </tr>`).join("") :
+        `<tr><td colspan="6" class="text-center text-muted py-4">Cap convocatòria amb aquests filtres.</td></tr>`;
+    }
+
+    function field(label, icon, text) {
+      return `<div class="mb-3"><div class="field-label"><i class="bi ${icon} me-1"></i>${label}</div><div class="small">${text}</div></div>`;
+    }
+
+    function card(c) {
+      const d = new Date(c.deadline + "T12:00:00");
+      return `
+      <div class="card call-card shadow-sm border-0 mb-4" id="${c.id}" data-encaix="${c.encaix}">
+        <div class="card-body p-4">
+          <div class="d-flex gap-3 flex-column flex-md-row">
+            <div class="deadline-box text-center bg-light rounded-3 p-3 align-self-start">
+              <div class="field-label mb-1">Deadline</div>
+              <div class="deadline-day text-danger">${d.getDate()}</div>
+              <div class="fw-semibold">${MESOS[d.getMonth()]} 2027</div>
+            </div>
+            <div class="flex-grow-1">
+              <div class="d-flex flex-wrap gap-2 align-items-center mb-1">
+                <span class="call-id text-muted">${c.id}</span>
+                <span class="badge bg-dark">${c.tipus}</span>
+                ${encaixBadge(c.encaix, "Encaix ")}
+              </div>
+              <h5 class="fw-bold mb-1">${c.titolCa}</h5>
+              <div class="text-muted small fst-italic mb-3">${c.title}</div>
+
+              <div class="row g-2 mb-3 small">
+                <div class="col-6 col-lg-3"><div class="border rounded p-2 h-100"><div class="field-label">Budget del topic</div><strong>${fmtM(c.budget)}</strong></div></div>
+                <div class="col-6 col-lg-3"><div class="border rounded p-2 h-100"><div class="field-label">Per projecte</div><strong>${c.perProject}</strong> · ${c.nProjects} proj.</div></div>
+                <div class="col-6 col-lg-3"><div class="border rounded p-2 h-100"><div class="field-label">Obertura</div><strong>${c.obertura}</strong></div></div>
+                <div class="col-6 col-lg-3"><div class="border rounded p-2 h-100"><div class="field-label">Deadline(s)</div><strong>${c.deadlineText}</strong></div></div>
+              </div>
+
+              ${field("Objectiu de la call", "bi-bullseye", c.objectiu)}
+
+              <div class="collapse" id="det-${c.id}">
+                ${field("Scope", "bi-diagram-3", c.scope)}
+                ${field("Consorci", "bi-people", c.consorci)}
+                ${field("Expected impact", "bi-graph-up-arrow", c.impacte)}
+              </div>
+
+              <div class="p-3 rounded-3 border-start border-4 border-success bg-success-subtle bg-opacity-25 mb-3">
+                <div class="field-label text-success-emphasis"><i class="bi bi-building me-1"></i>Encaix amb FTSS</div>
+                <div class="mb-2">${areaBadges(c.arees)}</div>
+                <div class="small">${c.perQue}</div>
+              </div>
+
+              <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#det-${CSS.escape(c.id)}">
+                  <i class="bi bi-chevron-down me-1"></i>Scope, consorci i impacte
+                </button>
+                <a class="btn btn-sm btn-outline-secondary" href="${portalUrl(c.id)}" target="_blank" rel="noopener">
+                  <i class="bi bi-box-arrow-up-right me-1"></i>Portal Funding &amp; Tenders
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    function renderClusters(list) {
+      const cont = document.getElementById("clusterContainer");
+      const keys = [...new Set(list.map(c => c.cluster))].sort();
+      if (!keys.length) {
+        cont.innerHTML = `<div class="text-center text-muted py-5"><i class="bi bi-search fs-1 d-block mb-2"></i>Cap convocatòria amb aquests filtres.</div>`;
+        return;
+      }
+      cont.innerHTML = keys.map(k => {
+        const cl = CLUSTERS[k];
+        const items = list.filter(c => c.cluster === k);
+        return `
+        <div class="mb-5">
+          <div class="d-flex align-items-center gap-2 mb-3 cluster-heading" id="cluster-${k}">
+            <i class="bi ${cl.icon} fs-3 text-${cl.color}"></i>
+            <h3 class="fw-bold mb-0">${cl.nom}</h3>
+            <span class="badge bg-${cl.color}-subtle text-${cl.color}-emphasis border ms-1">${cl.wp}</span>
+            <span class="text-muted small ms-auto">${items.length} topic${items.length > 1 ? "s" : ""}</span>
+          </div>
+          ${items.map(card).join("")}
+        </div>`;
+      }).join("");
+    }
+
+    function render() {
+      const list = filtered();
+      renderStats(list);
+      renderCalendar(list);
+      renderClusters(list);
+      document.getElementById("resultCount").textContent =
+        `Es mostren ${list.length} de ${CALLS.length} convocatòries seleccionades.`;
+    }
+
+    [fCluster, fMes, fArea, fEncaix].forEach(el => el.addEventListener("change", render));
+    fText.addEventListener("input", render);
+    document.getElementById("fReset").addEventListener("click", () => {
+      [fCluster, fMes, fArea, fEncaix].forEach(el => el.value = "");
+      fText.value = "";
+      render();
+    });
+
+    render();
+  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
